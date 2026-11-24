@@ -1,0 +1,15 @@
+{
+  "frontendDir": "frontend",
+  "devCommand": ["npm", "run", "dev"],
+  "base": "http://localhost:5173",
+  "api": "http://localhost:5285",
+  "sessionKey": "app.session",
+  "session": {
+    "token": "synthetic-token",
+    "userId": "00000000-0000-0000-0000-000000000001",
+    "name": "Synthetic $ROLE",
+    "email": "test@example.com",
+    "role": "$ROLE"
+  },
+  "widths": [1440, 1280]
+}
