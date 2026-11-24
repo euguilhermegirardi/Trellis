@@ -1,0 +1,9 @@
+{
+  "unit": "screen",
+  "baseBranch": "main",
+  "branchPrefix": "feat/",
+  "maxRounds": 3,
+  "planPath": "docs/PLAN.md",
+  "reportDir": "docs/reports",
+  "checks": ["npm run format:check", "npm run lint", "npm run typecheck", "npm test"]
+}
