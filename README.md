@@ -8,6 +8,16 @@ optional packs per stack.
 
 > Status: work in progress. Packs are being extracted one at a time, with tests.
 
+## Install
+
+```bash
+scripts/install.sh /path/to/project --stack react --stack dotnet
+scripts/install.sh --user
+```
+
+Or add the plugin marketplace in Claude Code (`/plugin marketplace add euguilhermegirardi/Trellis`). See
+[docs/INSTALL.md](docs/INSTALL.md) for both routes and what each one installs.
+
 ## Layout
 
 ```

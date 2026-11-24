@@ -1,0 +1,7 @@
+{
+  "name": "trellis-dotnet",
+  "description": "Trellis conventions for .NET",
+  "version": "0.1.0",
+  "author": { "name": "Guilherme Girardi" },
+  "license": "MIT"
+}
