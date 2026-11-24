@@ -1,0 +1,16 @@
+{
+  "baseBranch": "main",
+  "branchPrefix": "feat/",
+  "skill": "delivery-cycle",
+  "queueFile": "unattended.queue",
+  "model": "opus",
+  "limitSeconds": 18000,
+  "maxTurns": 400,
+  "maxUsd": 25,
+  "attempts": 2,
+  "checkTrust": true,
+  "forceSubscription": true,
+  "requiredCommands": ["node", "npm"],
+  "prepare": ["npm install --no-audit --no-fund --silent"],
+  "allowedTools": ["Bash(npm *)", "Bash(npx *)", "Bash(node *)"]
+}
