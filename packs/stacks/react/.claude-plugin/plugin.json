@@ -1,0 +1,7 @@
+{
+  "name": "trellis-react",
+  "description": "Trellis conventions for React and TypeScript",
+  "version": "0.1.0",
+  "author": { "name": "Guilherme Girardi" },
+  "license": "MIT"
+}

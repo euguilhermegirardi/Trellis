@@ -1,0 +1,22 @@
+{
+  "name": "trellis",
+  "owner": { "name": "Guilherme Girardi" },
+  "metadata": { "description": "A reusable harness for Claude Code agents" },
+  "plugins": [
+    {
+      "name": "trellis-core",
+      "source": "./packs/core",
+      "description": "Stack-agnostic guardrails: builder, tester and reviewer agents, pre-commit check, living-doc skill and the unattended-mode guard"
+    },
+    {
+      "name": "trellis-react",
+      "source": "./packs/stacks/react",
+      "description": "React and TypeScript: the new-screen skill"
+    },
+    {
+      "name": "trellis-dotnet",
+      "source": "./packs/stacks/dotnet",
+      "description": ".NET: the new-endpoint skill and the gap-filler agent"
+    }
+  ]
+}
