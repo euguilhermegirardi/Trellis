@@ -1,0 +1,108 @@
+// Trellis preset: oxlint configuration for a React + TypeScript front end.
+// Copy to <frontend>/.oxlintrc.json. Every rule has its reason next to it.
+// Layer boundaries assume this layout (rename the globs if yours differs):
+//   src/modules/<feature>/   feature code            src/layouts/   app shell
+//   src/routes/              route table             src/components, src/utils, src/services, ... shared base
+// Direction of imports: routes -> layouts/modules -> shared base. A module never imports another module.
+{
+  "plugins": ["react", "typescript", "oxc", "jsx-a11y", "import"],
+  "rules": {
+    // --- React ---
+    "react/rules-of-hooks": "error", // hooks always in the same order (no hook after a return or inside an if)
+    "react/exhaustive-deps": "warn", // correct dependencies in useEffect/useMemo/useCallback
+    "react/only-export-components": ["warn", { "allowConstantExport": true }], // keeps fast refresh working
+
+    // --- Security ---
+    "react/no-danger": "error", // forbids dangerouslySetInnerHTML (XSS)
+    "no-restricted-globals": [
+      "error",
+      { "name": "localStorage", "message": "Keep tokens and session data in sessionStorage, behind one session module." }
+    ],
+
+    // --- TypeScript ---
+    "typescript/no-explicit-any": "error", // use unknown plus validation, never any
+    "typescript/consistent-type-imports": "error", // `import type` for types and interfaces
+
+    // --- Quality ---
+    "eqeqeq": "error", // always === and !==
+    "no-console": "warn", // no forgotten console.log (never log a token)
+
+    // --- Accessibility ---
+    "jsx-a11y/alt-text": "error", // every image has alt text
+    "jsx-a11y/label-has-associated-control": "error", // every input has a label
+    "jsx-a11y/prefer-tag-over-role": "off" // <div role="status"> is the standard ARIA loading pattern
+  },
+  "overrides": [
+    {
+      // Components and screens: const plus arrow functions (components, handlers, local helpers).
+      "files": ["src/modules/**/*.tsx", "src/components/*.tsx", "src/layouts/**/*.tsx", "src/routes/**/*.tsx"],
+      "rules": { "func-style": ["error", "expression"] }
+    },
+    {
+      // Pure utilities and services: named `function` declarations.
+      "files": ["src/utils/**/*.ts", "src/services/**/*.ts"],
+      "rules": { "func-style": ["error", "declaration", { "allowArrowFunctions": false }] }
+    },
+    {
+      // A module never imports from another module; shared code lives at the root of src/.
+      // Files of the same module use relative imports.
+      "files": ["src/modules/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/modules/*", "@/modules/**"],
+                "message": "A module does not import from another module: move shared code up to src/components, src/utils, src/interfaces..."
+              },
+              {
+                "group": ["@/routes/*", "@/routes/**", "@/layouts/*", "@/layouts/**"],
+                "message": "Modules do not depend on routes/ or layouts/ (direction: routes -> layouts/modules -> base)."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      // App shell (sidebar, top bar): knows no screens and no routes.
+      "files": ["src/layouts/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/modules/*", "@/modules/**", "@/routes/*", "@/routes/**"],
+                "message": "layouts/ does not import from modules/ or routes/."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      // Shared base: knows no modules, routes or layouts.
+      "files": ["src/components/**", "src/interfaces/**", "src/utils/**", "src/services/**", "src/hooks/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/modules/*", "@/modules/**", "@/routes/*", "@/routes/**", "@/layouts/*", "@/layouts/**"],
+                "message": "The shared base of src/ does not import from modules/, routes/ or layouts/."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      // Tests: helpers may be `function`; console is allowed for local debugging.
+      "files": ["**/*.test.ts", "**/*.test.tsx", "src/test/**"],
+      "rules": { "func-style": "off", "no-restricted-imports": "off", "no-console": "off" }
+    }
+  ]
+}
