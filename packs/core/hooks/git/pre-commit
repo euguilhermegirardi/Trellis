@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Trellis pre-commit: runs the secret scan. Project checks can be added below.
+set -euo pipefail
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+"$here/scan-secrets.sh"
