@@ -1,0 +1,15 @@
+{
+  "plan": "docs/PLAN.md",
+  "logHeading": "## Log",
+  "baseBranch": "main",
+  "timezone": "UTC",
+  "triggers": ["src/modules/**", "src/routes/**", "database/schema/**"],
+  "excludes": ["**/*.test.ts", "**/*.test.tsx"],
+  "skipBranches": ["wip/*"],
+  "areas": [
+    { "match": "^src/modules/([^/]+)/", "label": "modules/$1" },
+    { "match": "^database/", "label": "database" },
+    { "match": "^docs/", "label": "docs" },
+    { "match": "^(\\.claude|\\.githooks|scripts)/", "label": "infra" }
+  ]
+}

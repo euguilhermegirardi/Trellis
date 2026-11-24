@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Trellis pre-commit: runs the secret scan. Project checks can be added below.
+# Trellis pre-commit: secret scan, then the living-document gate (a no-op without .trellis/living-doc.json).
+# Project-specific checks can be added below.
 set -euo pipefail
 here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 "$here/scan-secrets.sh"
+"$here/living-doc-check.sh"
