@@ -1,0 +1,7 @@
+# Copy to .prettierignore. Prettier acts on source code only; generated output and lock files stay out.
+# Add *.md here if you do not want Markdown reformatted.
+dist/
+coverage/
+playwright-report/
+test-results/
+package-lock.json
